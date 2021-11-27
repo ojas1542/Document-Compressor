@@ -1,2 +1,2 @@
-# Ojas-Code
+# School-Projects
 All course projects
