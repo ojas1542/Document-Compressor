@@ -1,2 +1,2 @@
 # Ojas-Code
-All projects and software
+All course projects
