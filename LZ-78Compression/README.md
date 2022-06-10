@@ -1,7 +1,6 @@
 # Purpose 
 
-This program will compress a given text file or text input using LZ-78 algorithm. It will also display compression statistics.
-Uses BitVectors and Tries. 
+This program will compress a text file using LZ-78 algorithm. It will also display compression statistics. 
 
 # Building
 
