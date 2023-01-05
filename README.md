@@ -1,2 +1,2 @@
 # School-Projects
-All course projects
+All school projects
