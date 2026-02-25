@@ -1,2 +1,2 @@
 # Document-Compressor
-A document compression that uses the LZ-78 algorithm.
+A document compression tool that uses the LZ-78 algorithm.
