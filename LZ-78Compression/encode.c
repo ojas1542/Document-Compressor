@@ -49,7 +49,8 @@ int main(int argc, char **argv) {
       }
       break;
     case 'o':
-      out = open(optarg, O_WRONLY | O_CREAT); // open or create as write-only
+      // open or create as write-only, truncating any old contents
+      out = open(optarg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
       break;
     default:
       printf("Invalid arguments\n"); // if invalid arguments are entered.
@@ -115,10 +116,10 @@ int main(int argc, char **argv) {
   // printf("bit: %d\n",bwi);
   if (display_stat) {         // if -v flag is passed.
     fstat(out, &outFileInfo); // read information about compressed file made.
-    fprintf(stderr, "Compressed file size: %ld bytes\n",
-            outFileInfo.st_size); // print out compressed file size.
-    fprintf(stderr, "Uncompressed file size: %ld bytes\n",
-            inFileInfo.st_size); // print out decompressed file size.
+    fprintf(stderr, "Compressed file size: %lld bytes\n",
+            (long long)outFileInfo.st_size); // print out compressed file size.
+    fprintf(stderr, "Uncompressed file size: %lld bytes\n",
+            (long long)inFileInfo.st_size); // print out decompressed file size.
     double comp_ratio =
         100 * (1 - (double)outFileInfo.st_size /
                        (double)inFileInfo.st_size); // compression ratio.
