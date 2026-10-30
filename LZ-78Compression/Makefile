@@ -1,5 +1,13 @@
+CC=clang
 CFLAGS=-std=c99 -Wall -Werror -Wextra -Wpedantic
-CC=clang $(CFLAGS)
+LFLAGS=-lm
+
+# Build native arm64 binaries on Apple Silicon, even from a Rosetta shell
+ifeq ($(shell uname -s),Darwin)
+ifeq ($(shell sysctl -n hw.optional.arm64 2>/dev/null),1)
+CFLAGS += -arch arm64
+endif
+endif
 
 SOURCES_ENCODE = encode.c bv.c io.c trie.c word.c
 SOURCES_DECODE = decode.c bv.c io.c trie.c word.c
@@ -9,9 +17,9 @@ OBJECTS_D = $(SOURCES_DECODE:%.c=%.o)
 .PHONY: all
 all : encode decode
 encode: $(OBJECTS_E)
-	$(CC) $(CFLAGS) -lm -o encode $(OBJECTS_E) $(LFLAGS)
+	$(CC) $(CFLAGS) -o encode $(OBJECTS_E) $(LFLAGS)
 decode	: $(OBJECTS_D) 
-	$(CC) $(CFLAGS) -lm -o decode $(OBJECTS_D) $(LFLAGS)
+	$(CC) $(CFLAGS) -o decode $(OBJECTS_D) $(LFLAGS)
 encode.o : encode.c
 	$(CC) $(CFLAGS) -c encode.c
 decode.o : decode.c
